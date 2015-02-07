@@ -104,6 +104,7 @@ var WebatyLaravelDocumentation = {
 				success:function(data){
 					Webaty.stopLoader();
 					$('.docs article').html($(data).find('article').html());
+					Prism.highlightAll();
 					Webaty.articleLinks();
 					if(window.location.hash){
 						if($(window.location.hash).length > 0){
