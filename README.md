@@ -22,7 +22,7 @@ Tested on the following browsers:
 ---
 - Google Chrome
 - Firefox
-- Internet explorer >= 10
+- Internet explorer 10, 11
 - Opera
 
 Author
