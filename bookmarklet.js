@@ -91,6 +91,25 @@ var WebatyLaravelDocumentation = {
 	'stopLoader': function(){
 		$('.webaty-loader').hide(1200, function(){ $(this).remove()});
 	},
+	'afterAjaxComplete': function(){
+		Prism.highlightAll();
+		$('.docs article').find('a[name]').each(function() {
+			var anchor = $('<a href="#' + this.name + '">');
+			$(this).parent().next('h2').wrapInner(anchor);
+		});
+		$('.docs article a[href*=#]:not([href=#])').click(function() {
+			if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
+				var target = $(this.hash);
+				target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
+				if (target.length) {
+					$('html,body').animate({
+						scrollTop: target.offset().top
+					}, 1000);
+					return false;
+				}
+			}
+		});
+	},
 	'setCurrentPage': function(url){
 		var Webaty = this;
 		if(Webaty.getCleanUrl(url)){
@@ -104,7 +123,7 @@ var WebatyLaravelDocumentation = {
 				success:function(data){
 					Webaty.stopLoader();
 					$('.docs article').html($(data).find('article').html());
-					Prism.highlightAll();
+					Webaty.afterAjaxComplete();
 					Webaty.articleLinks();
 					if(window.location.hash){
 						if($(window.location.hash).length > 0){
