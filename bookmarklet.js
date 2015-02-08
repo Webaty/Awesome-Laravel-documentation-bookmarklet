@@ -20,6 +20,7 @@ var WebatyLaravelDocumentation = {
 			this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
 			e.preventDefault();
 		});
+		$('.docs article a[href*=#]:not([href=#])').unbind('click');
 		window.onpopstate = function(e) {
 			if(e.state){
 				if(Webaty.getCleanUrl(Webaty.getQualifyURL(e.state.url)) != Webaty.lastUrl){
@@ -96,21 +97,6 @@ var WebatyLaravelDocumentation = {
 		$('.docs article').find('a[name]').each(function() {
 			var anchor = $('<a href="#' + this.name + '">');
 			$(this).parent().next('h2').wrapInner(anchor);
-		});
-		$('.docs article a[href*=#]:not([href=#])').click(function() {
-			if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
-				var target = $(this.hash);
-				var hash = this.hash.slice(1);
-				target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
-				if (target.length) {
-					$('html,body').animate({
-						scrollTop: target.offset().top
-					}, 1000, function(){
-						window.location.hash = hash;
-					});
-					return false;
-				}
-			}
 		});
 	},
 	'setCurrentPage': function(url){
