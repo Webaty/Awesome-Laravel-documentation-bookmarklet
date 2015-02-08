@@ -13,6 +13,7 @@ var WebatyLaravelDocumentation = {
 			Webaty.loadPage(this);
 			return false;
 		});
+		$('.docs article a[href*=#]:not([href=#])').unbind('click');
 		Webaty.articleLinks();
 		Webaty.sideBar().bind( 'mousewheel DOMMouseScroll', function ( e ) {
 			var e0 = e.originalEvent,
@@ -20,7 +21,6 @@ var WebatyLaravelDocumentation = {
 			this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
 			e.preventDefault();
 		});
-		$('.docs article a[href*=#]:not([href=#])').unbind('click');
 		window.onpopstate = function(e) {
 			if(e.state){
 				if(Webaty.getCleanUrl(Webaty.getQualifyURL(e.state.url)) != Webaty.lastUrl){
